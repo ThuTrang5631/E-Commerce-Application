@@ -1,0 +1,133 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0 24px;
+  
+  .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 70px;
+  }
+
+  .header-logo {
+    cursor: pointer;
+    transition: transform 0.2s;
+    
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .header-search {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .ant-input-affix-wrapper {
+      border-radius: 24px;
+      padding: 8px 16px;
+      
+      &:hover, &:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+      }
+    }
+
+    .ant-input {
+      font-size: 15px;
+    }
+  }
+
+ 
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .ant-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 20px;
+      font-weight: 500;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: #f5f5f5;
+        color: #667eea;
+      }
+    }
+
+    .ant-badge {
+      .ant-btn {
+        padding: 0 12px;
+      }
+      
+      .ant-badge-count {
+        
+        box-shadow: 0 2px 6px rgba(255, 77, 79, 0.3);
+        top: 7px;
+        right: 5px;
+      }
+    }
+  }
+}
+
+// Responsive
+// @media (max-width: 768px) {
+//   .header {
+//     padding: 0 16px;
+
+//     .header-container {
+//       gap: 12px;
+//       height: 60px;
+//     }
+
+//     .header-logo {
+//       h1 {
+//         font-size: 20px;
+//       }
+//     }
+
+//     .header-search {
+//       max-width: 300px;
+//     }
+
+//     .header-actions {
+//       .ant-btn span:not(.anticon) {
+//         display: none; // Hide text on mobile
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .header {
+//     .header-search {
+//       display: none; // Hide search on very small screens
+//     }
+//   }
+// }

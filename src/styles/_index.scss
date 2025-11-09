@@ -1,0 +1,57 @@
+@use "./components/header";
+@use "./pages/login";
+@use "./components/card-item";
+@use "./pages/product-list";
+@use "./pages/cart";
+@use "./components/cart-item";
+
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+button{
+  cursor: pointer;
+}
+
+.input{
+  border-radius: 10px;
+  border: 0.5px solid #E8E8E8;
+  padding: 5px 10px;
+  font-size: 13px;
+  width: 100%;
+}
+
+.label-input{
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+
+.btn{
+  background-color: #4BA52D;
+  padding: 5px 10px;
+  border-radius: 10px;
+  width: 100%;
+  color: white
+}
+
+.container-app{
+  height: 100%;
+  min-height: 100vh;
+ 
+}

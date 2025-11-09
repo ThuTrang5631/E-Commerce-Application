@@ -3,18 +3,12 @@ import "../../styles/components/_cart-item.scss";
 interface ICartItemProps {
   product: any;
   cartId: string;
-  onRemoveProduct: (cartId: string, productId: string) => void;
-  onUpdateQuantity: (
-    cartId: string,
-    productId: string,
-    quantity: number,
-    type: string
-  ) => void;
+  onRemoveProduct: (productId: string) => void;
+  onUpdateQuantity: (productId: string, quantity: number, type: string) => void;
 }
 
 const CartItem = ({
   product,
-  cartId,
   onRemoveProduct,
   onUpdateQuantity,
 }: ICartItemProps) => {
@@ -22,7 +16,7 @@ const CartItem = ({
     <div className="cart-item">
       <button
         className="remove-btn"
-        onClick={() => onRemoveProduct(cartId, product.id)}
+        onClick={() => onRemoveProduct(product.id)}
       >
         ×
       </button>
@@ -40,12 +34,7 @@ const CartItem = ({
         <button
           className="qty-btn"
           onClick={() =>
-            onUpdateQuantity(
-              cartId,
-              product.id,
-              product.quantity,
-              "subtraction"
-            )
+            onUpdateQuantity(product.id, product.quantity, "subtraction")
           }
         >
           −
@@ -53,9 +42,7 @@ const CartItem = ({
         <span className="qty-value">{product.quantity || 1}</span>
         <button
           className="qty-btn"
-          onClick={() =>
-            onUpdateQuantity(cartId, product.id, product.quantity, "plus")
-          }
+          onClick={() => onUpdateQuantity(product.id, product.quantity, "plus")}
         >
           +
         </button>

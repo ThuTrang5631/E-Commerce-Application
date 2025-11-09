@@ -8,6 +8,8 @@ import Login from "./pages/Login";
 import CartPage from "./pages/Cart";
 import ProtectRoute from "./components/ProtectRoute";
 import Layout from "./components/Layout";
+import Checkout from "./pages/Checkout";
+import Checkout11 from "./pages/Checkout11";
 
 function App() {
   return (
@@ -21,6 +23,22 @@ function App() {
             element={
               <ProtectRoute>
                 <CartPage />
+              </ProtectRoute>
+            }
+          />
+          <Route
+            path={ROUTES.CHECKOUT}
+            element={
+              <ProtectRoute>
+                <Checkout />
+              </ProtectRoute>
+            }
+          />
+          <Route
+            path={"/11"}
+            element={
+              <ProtectRoute>
+                <Checkout11 />
               </ProtectRoute>
             }
           />

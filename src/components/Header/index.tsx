@@ -74,8 +74,11 @@ const Header = () => {
     try {
       const res = await getCartByUser(user?.id);
       if (res?.data?.carts) {
-        saveCarts(res?.data?.carts);
-        saveInLocalStorage(CARTS, JSON.stringify(res?.data?.carts));
+        saveCarts(res?.data?.carts?.[0]?.products);
+        saveInLocalStorage(
+          CARTS,
+          JSON.stringify(res?.data?.carts?.[0]?.products)
+        );
       }
     } catch (error) {}
   };
@@ -88,6 +91,8 @@ const Header = () => {
 
   useEffect(() => {
     if (Object.keys(user).length && accessToken && !carts.length) {
+      console.log("hhii");
+
       handleGetCartByUser();
     }
   }, [user]);

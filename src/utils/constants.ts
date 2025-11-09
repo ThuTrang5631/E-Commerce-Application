@@ -9,3 +9,5 @@ export const API_BASE_URL = "https://dummyjson.com";
 export const ACCESS_TOKEN = "access_token";
 export const REFRESH_TOKEN = "refresh_token";
 export const CARTS = "carts";
+export const regPhoneNumber =
+  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,7}$/;

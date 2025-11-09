@@ -1,11 +1,23 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Typography } from "antd";
 import { login } from "./service";
-import { saveInLocalStorage } from "../../utils/handler";
-import { ACCESS_TOKEN, REFRESH_TOKEN, ROUTES } from "../../utils/constants";
+import {
+  getValueFromLocalStorage,
+  saveInLocalStorage,
+} from "../../utils/handler";
+import {
+  ACCESS_TOKEN,
+  CARTS,
+  REFRESH_TOKEN,
+  ROUTES,
+} from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useCarts } from "../../store/useCart";
 
 const Login = () => {
   const navigate = useNavigate();
+  const token = getValueFromLocalStorage(ACCESS_TOKEN);
+  const carts = useCarts((state: any) => state.carts);
 
   const handleSubmitLogin = async (values: any) => {
     try {
@@ -19,9 +31,20 @@ const Login = () => {
     } catch (error) {}
   };
 
+  useEffect(() => {
+    if (token) {
+      navigate(ROUTES.PRODUCTS);
+    }
+
+    if (carts?.length) {
+      saveInLocalStorage(CARTS, JSON.stringify([]));
+    }
+  }, []);
+
   return (
     <div className="login">
       <div className="login-form">
+        <Typography.Title>Log in</Typography.Title>
         <Form onFinish={handleSubmitLogin} autoComplete="off" layout="vertical">
           <Form.Item
             label="Username"
@@ -44,9 +67,6 @@ const Login = () => {
           </Button>
         </Form>
       </div>
-      {/* <div className="signup-image">
-          <img alt="sign up image" src={loginImage} />
-        </div> */}
     </div>
   );
 };

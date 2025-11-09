@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Checkout = () => {
+const Checkout11 = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
@@ -280,4 +280,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default Checkout11;

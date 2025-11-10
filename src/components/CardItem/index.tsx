@@ -5,10 +5,11 @@ import { useAuth } from "../../store/useAuth";
 import { CARTS, ROUTES } from "../../utils/constants";
 import { useCarts } from "../../store/useCart";
 import { saveInLocalStorage } from "../../utils/handler";
+import type { IProduct } from "../../pages/ProductList/data.t";
 
 interface CardItemProps {
   onAddToCart?: () => void;
-  product: any;
+  product: IProduct;
 }
 
 const CardItem = ({ product }: CardItemProps) => {

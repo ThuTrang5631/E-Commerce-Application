@@ -3,6 +3,7 @@ import { getlistProducts } from "./service";
 import { useProducts } from "../../store/useProducts";
 import { useCallback, useEffect, useRef, useState } from "react";
 import CardItem from "../../components/CardItem";
+import type { IProduct } from "./data.t";
 
 const LIMIT = 20;
 
@@ -100,7 +101,7 @@ const ProductList = () => {
     <div className="products">
       <Row gutter={[24, 16]}>
         {Array.isArray(productList) &&
-          productList.map((product: any) => {
+          productList.map((product: IProduct) => {
             return (
               <Col span={6} key={product?.id}>
                 <CardItem product={product} />

@@ -91,8 +91,6 @@ const Header = () => {
 
   useEffect(() => {
     if (Object.keys(user).length && accessToken && !carts.length) {
-      console.log("hhii");
-
       handleGetCartByUser();
     }
   }, [user]);

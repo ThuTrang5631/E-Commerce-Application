@@ -7,7 +7,6 @@ const loadCartsFromStorage = () => {
     const savedCarts = getValueFromLocalStorage(CARTS);
     return savedCarts ? JSON.parse(savedCarts) : [];
   } catch (error) {
-    console.error("Error loading carts from localStorage:", error);
     return [];
   }
 };

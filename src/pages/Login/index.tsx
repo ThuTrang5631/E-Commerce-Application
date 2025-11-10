@@ -1,4 +1,9 @@
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Form, Input, Typography, message } from "antd";
+import {
+  UserOutlined,
+  LockOutlined,
+  ShoppingOutlined,
+} from "@ant-design/icons";
 import { login } from "./service";
 import {
   getValueFromLocalStorage,
@@ -11,24 +16,34 @@ import {
   ROUTES,
 } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCarts } from "../../store/useCart";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
   const token = getValueFromLocalStorage(ACCESS_TOKEN);
   const carts = useCarts((state: any) => state.carts);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmitLogin = async (values: any) => {
+    setLoading(true);
     try {
       const res = await login(values);
 
       if (res?.data) {
         saveInLocalStorage(ACCESS_TOKEN, res?.data?.accessToken);
         saveInLocalStorage(REFRESH_TOKEN, res?.data?.refreshToken);
-        navigate(ROUTES.PRODUCTS);
+        toast.success("Login successful!");
+        setTimeout(() => {
+          navigate(ROUTES.PRODUCTS);
+        }, 500);
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Login failed! Please check your credentials.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -43,29 +58,95 @@ const Login = () => {
 
   return (
     <div className="login">
-      <div className="login-form">
-        <Typography.Title>Log in</Typography.Title>
-        <Form onFinish={handleSubmitLogin} autoComplete="off" layout="vertical">
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input placeholder="Enter your username" />
-          </Form.Item>
+      <div className="login-container">
+        <div className="login-left">
+          <div className="login-left-content">
+            <div className="logo-section">
+              <ShoppingOutlined className="logo-icon" />
+              <Typography.Title level={1} className="brand-name">
+                E-Shop
+              </Typography.Title>
+            </div>
+            <Typography.Title level={2} className="welcome-title">
+              Welcome Back!
+            </Typography.Title>
+            <Typography.Paragraph className="welcome-text">
+              Discover thousands of quality products at the best prices. Login
+              for an amazing shopping experience!
+            </Typography.Paragraph>
+            <div className="features">
+              <div className="feature-item">
+                <span className="feature-icon">✓</span>
+                <span>Free Shipping</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">✓</span>
+                <span>Secure Payment</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">✓</span>
+                <span>Easy Returns</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input.Password placeholder="Enter your password" />
-          </Form.Item>
+        <div className="login-right">
+          <div className="login-form">
+            <div className="form-header">
+              <Typography.Title level={2} className="form-title">
+                Log in
+              </Typography.Title>
+              <Typography.Text className="form-subtitle">
+                Welcome back! Please login to your account.
+              </Typography.Text>
+            </div>
 
-          <Button className="w-full" type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form>
+            <Form
+              onFinish={handleSubmitLogin}
+              autoComplete="off"
+              layout="vertical"
+              className="login-form-content"
+            >
+              <Form.Item
+                name="username"
+                rules={[
+                  { required: true, message: "Please enter your username!" },
+                ]}
+              >
+                <Input
+                  prefix={<UserOutlined className="input-icon" />}
+                  placeholder="Username"
+                  size="large"
+                  className="custom-input"
+                />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  { required: true, message: "Please enter your password!" },
+                ]}
+              >
+                <Input.Password
+                  prefix={<LockOutlined className="input-icon" />}
+                  placeholder="Password"
+                  size="large"
+                  className="custom-input"
+                />
+              </Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                size="large"
+                loading={loading}
+                className="login-button"
+                block
+              >
+                Sign In
+              </Button>
+            </Form>
+          </div>
+        </div>
       </div>
     </div>
   );

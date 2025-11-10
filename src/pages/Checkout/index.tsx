@@ -9,7 +9,6 @@ import {
   Divider,
   Row,
   Col,
-  message,
   Spin,
 } from "antd";
 import { BankOutlined, WalletOutlined } from "@ant-design/icons";
@@ -20,6 +19,7 @@ import { checkOut } from "./service";
 import { useNavigate } from "react-router-dom";
 import { CARTS, regPhoneNumber, ROUTES } from "../../utils/constants";
 import { saveInLocalStorage } from "../../utils/handler";
+import { toast } from "react-toastify";
 
 const { Title, Text } = Typography;
 
@@ -57,7 +57,7 @@ const Checkout = () => {
     const res = checkOut(values);
 
     if (res?.isSuccess) {
-      message.success("Payment is successful");
+      toast.success("Payment is successful");
       setCarts([]);
       saveInLocalStorage(CARTS, JSON.stringify([]));
 
@@ -66,7 +66,7 @@ const Checkout = () => {
         navigate(ROUTES.PRODUCTS);
       }, 2000);
     } else {
-      message.error("Payment is failed");
+      toast.error("Payment is failed");
       setLoading(false);
     }
   };
@@ -221,7 +221,6 @@ const Checkout = () => {
 
                 <Divider className="divider-large" />
 
-                {/* Payment Method */}
                 <Title level={3} className="section-title">
                   Payment Method
                 </Title>
@@ -302,18 +301,6 @@ const Checkout = () => {
                         <Form.Item
                           label="Card Number"
                           name="cardNumber"
-                          normalize={(value) => {
-                            // Remove all non-digits for storage
-                            return value.replace(/\D/g, "");
-                          }}
-                          getValueFromEvent={(e) => {
-                            // Format display value with dashes
-                            const value = e.target.value.replace(/\D/g, "");
-                            const formatted =
-                              value.match(/.{1,4}/g)?.join("-") || value;
-                            e.target.value = formatted;
-                            return value;
-                          }}
                           rules={[
                             {
                               required: true,
@@ -326,9 +313,9 @@ const Checkout = () => {
                           ]}
                         >
                           <Input
-                            placeholder="1234-5678-9012-3456"
+                            placeholder="Enter card number"
                             size="large"
-                            maxLength={19}
+                            maxLength={16}
                           />
                         </Form.Item>
                       </Col>
@@ -340,7 +327,6 @@ const Checkout = () => {
                           label="Expiry Date"
                           name="expiryDate"
                           getValueFromEvent={(e) => {
-                            // Format display value with slash
                             const value = e.target.value.replace(/\D/g, "");
                             const formatted =
                               value.length >= 2
@@ -444,7 +430,6 @@ const Checkout = () => {
                 block
                 className="checkout-button"
                 onClick={() => {
-                  console.log("🔘 Confirm Payment button clicked!");
                   form.submit();
                 }}
               >

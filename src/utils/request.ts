@@ -1,6 +1,11 @@
 import axios from "axios";
 import { ACCESS_TOKEN, API_BASE_URL, REFRESH_TOKEN, ROUTES } from "./constants";
-import { clearToken, getValueFromLocalStorage } from "./handler";
+import {
+  clearToken,
+  getValueFromLocalStorage,
+  saveInLocalStorage,
+} from "./handler";
+import { toast } from "react-toastify";
 
 export const request = axios.create({
   baseURL: API_BASE_URL,
@@ -25,9 +30,16 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log("error", error);
-
     const originalRequest = error.config;
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      "An error occurred";
+
+    if (!(error.response?.status === 401 && originalRequest._retry)) {
+      toast.error(errorMessage);
+      return;
+    }
 
     if (
       (error.response?.status === 401 || error.response?.status === 500) &&
@@ -45,7 +57,8 @@ request.interceptors.response.use(
           });
 
           if (response?.data) {
-            localStorage.setItem(ACCESS_TOKEN, response?.data?.accessToken);
+            saveInLocalStorage(ACCESS_TOKEN, response?.data?.accessToken);
+            saveInLocalStorage(REFRESH_TOKEN, response?.data?.refreshToken);
 
             originalRequest.headers.Authorization = `Bearer ${response?.data?.accessToken}`;
             return request(originalRequest);

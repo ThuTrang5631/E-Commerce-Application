@@ -111,3 +111,5 @@ E-Commerce-Application/
 ## 💡 Challenges and Considerations During Implementation
 - It was our first time using the Zustand library, so I had to research and familiarize ourselves with it before implementation, which took additional time.
 - DummyJSON provides only basic endpoints, so I customized it with extra logic to handle more realistic cases like adding items to a cart.
+- I was confused when calling the API to get a user’s cart, as the response returned array carts, each containing several products. I expected the API to return only one cart with the user’s added products.??
+- Since there are no APIs for adding carts or checkout, I only simulated a successful case during implementation. Exception handling for other cases hasn’t been fully implemented yet.

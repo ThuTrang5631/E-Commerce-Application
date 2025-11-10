@@ -1,5 +1,4 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../store/useAuth";
 import { ACCESS_TOKEN, ROUTES } from "../../utils/constants";
 import { getValueFromLocalStorage } from "../../utils/handler";
 

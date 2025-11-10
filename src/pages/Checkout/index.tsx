@@ -149,7 +149,7 @@ const Checkout = () => {
                           message: "Please input your phone number!",
                         },
                         {
-                          validator(rule, value, callback) {
+                          validator(_, value, callback) {
                             if (value && !regPhoneNumber.test(value)) {
                               return callback(
                                 "Phone number is not in correct format"

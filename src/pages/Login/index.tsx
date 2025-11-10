@@ -1,4 +1,4 @@
-import { Button, Form, Input, Typography, message } from "antd";
+import { Button, Form, Input, Typography } from "antd";
 import {
   UserOutlined,
   LockOutlined,
